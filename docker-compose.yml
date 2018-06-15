@@ -1,0 +1,13 @@
+version: '3'
+services:
+  gateway:
+    build: ssh-gateway
+    network_mode: host
+    depends_on:
+      - "emq"
+  forward:
+    build: ssh-forward
+    network_mode: host
+  emq:
+    build: emq_docker
+    network_mode: host

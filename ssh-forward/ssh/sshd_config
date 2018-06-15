@@ -1,0 +1,12 @@
+Port 2221
+LogLevel VERBOSE
+PubkeyAuthentication yes
+PermitRootLogin no
+PasswordAuthentication no
+AllowUsers ssh
+AuthorizedKeysFile /etc/ssh/authorized_keys
+AllowAgentForwarding no
+AllowTcpForwarding yes
+GatewayPorts no
+X11Forwarding no
+ForceCommand /bin/false
