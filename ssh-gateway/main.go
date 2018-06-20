@@ -166,7 +166,7 @@ func main() {
 
 	sshserver.Handle(handleSession)
 
-	log.Println("Listening in 2222")
+	log.Println("Listening in 22")
 
-	log.Fatal(sshserver.ListenAndServe(":2222", nil))
+	log.Fatal(sshserver.ListenAndServe(":22", nil))
 }
