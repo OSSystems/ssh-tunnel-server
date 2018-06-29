@@ -169,5 +169,5 @@ func main() {
 
 	log.Println("Listening in 22")
 
-	log.Fatal(sshserver.ListenAndServe(":22", nil))
+	log.Fatal(sshserver.ListenAndServe(":22", nil, sshserver.HostKeyFile("key.pem")))
 }

@@ -9,4 +9,5 @@ FROM alpine:3.7
 EXPOSE 2222
 WORKDIR /app
 COPY --from=build /src/ssh-gateway /app/
+ADD key.pem /app/key.pem
 ENTRYPOINT ./ssh-gateway
