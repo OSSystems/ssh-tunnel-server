@@ -18,6 +18,9 @@ import (
 
 func getTargetSessionInfo(s string) (username string, host string, port int) {
 	parts := strings.SplitN(s, "@", 2)
+	if len(parts) != 2 {
+		return
+	}
 
 	username = parts[0]
 
