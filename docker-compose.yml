@@ -9,5 +9,5 @@ services:
     build: ssh-forward
     network_mode: host
   emq:
-    build: emq_docker
+    build: git://github.com/emqtt/emq-docker
     network_mode: host
