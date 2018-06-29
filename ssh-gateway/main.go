@@ -12,6 +12,7 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
+	"github.com/Sirupsen/logrus"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	sshserver "github.com/gliderlabs/ssh"
 )
@@ -67,7 +68,7 @@ func handleSession(s sshserver.Session) {
 	fmt.Printf("PUBLISH device/%s %d\n", host, freePort)
 
 	if token := client.Publish(fmt.Sprintf("device/%s", host), 0, false, fmt.Sprintf("%d", freePort)); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
+		logrus.Error(token.Error())
 	}
 
 	time.Sleep(5 * time.Second)
@@ -161,7 +162,7 @@ func main() {
 
 	for {
 		if token := client.Connect(); token.Wait() && token.Error() != nil {
-			log.Println(token.Error())
+			logrus.Warning(token.Error())
 			time.Sleep(1 * time.Second)
 		} else {
 			break
@@ -170,7 +171,7 @@ func main() {
 
 	sshserver.Handle(handleSession)
 
-	log.Println("Listening in 22")
+	logrus.Info("Listening in 22")
 
 	log.Fatal(sshserver.ListenAndServe(":22", nil, sshserver.HostKeyFile("key.pem")))
 }
