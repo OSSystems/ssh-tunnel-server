@@ -153,6 +153,7 @@ var client mqtt.Client
 
 func main() {
 	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1883")
+	opts.SetAutoReconnect(true)
 	client = mqtt.NewClient(opts)
 
 	for {
