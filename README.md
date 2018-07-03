@@ -6,6 +6,11 @@ $ cd ssh-tunnel-server
 $ docker-compose build
 ```
 
+# Setup
+
+* Add the device public key to ./ssh-forward/ssh/authorized_keys
+* Add the server private key to ./ssh-gateway/key.pem
+
 # Running
 
 ```
