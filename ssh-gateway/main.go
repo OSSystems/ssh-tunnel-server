@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net"
 	"strconv"
@@ -172,6 +173,11 @@ func main() {
 	sshserver.Handle(handleSession)
 
 	logrus.Info("Listening in 22")
+
+	var start, end int
+	portRange, _ := ioutil.ReadFile("/proc/sys/net/ipv4/ip_local_port_range")
+	fmt.Sscanf(string(portRange), "%d %d", &start, &end)
+	fmt.Printf("Using port range from %d to %d\n", start, end)
 
 	log.Fatal(sshserver.ListenAndServe(":22", nil, sshserver.HostKeyFile("key.pem")))
 }
