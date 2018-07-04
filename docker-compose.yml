@@ -11,3 +11,6 @@ services:
   emq:
     build: git://github.com/emqtt/emq-docker
     network_mode: host
+    environment:
+     - EMQ_NAME=emq
+     - EMQ_HOST=127.0.0.1
