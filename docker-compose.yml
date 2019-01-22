@@ -14,3 +14,8 @@ services:
     environment:
      - EMQ_NAME=emq
      - EMQ_HOST=127.0.0.1
+  web:
+    build: web
+    network_mode: host
+    depends_on:
+      - "gateway"
