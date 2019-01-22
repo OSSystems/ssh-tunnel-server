@@ -66,9 +66,9 @@ func handleSession(s sshserver.Session) {
 
 	freePort, _ := GetFreePort()
 
-	fmt.Printf("PUBLISH device/%s %d\n", host, freePort)
+	fmt.Printf("PUBLISH connect/%s %d\n", host, freePort)
 
-	if token := client.Publish(fmt.Sprintf("device/%s", host), 0, false, fmt.Sprintf("%d", freePort)); token.Wait() && token.Error() != nil {
+	if token := client.Publish(fmt.Sprintf("connect/%s", host), 0, false, fmt.Sprintf("%d", freePort)); token.Wait() && token.Error() != nil {
 		logrus.Error(token.Error())
 	}
 
@@ -91,12 +91,11 @@ func handleSession(s sshserver.Session) {
 	}
 
 	port = freePort
-	host = "localhost"
 
-	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", host, port), config)
+	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", "localhost", port), config)
 	if err != nil {
 		fmt.Println(err)
-		io.WriteString(s, fmt.Sprintf("Failed to connect to %s@%s:%d: %s\n", username, host, port, err.Error()))
+		io.WriteString(s, fmt.Sprintf("Failed to connect to %s@%s:%d: %s\n", username, "localhost", port, err.Error()))
 		s.Close()
 		return
 	}
@@ -150,6 +149,10 @@ func handleSession(s sshserver.Session) {
 
 		if err = sshClient.Wait(); err != nil {
 			fmt.Println(err)
+		}
+
+		if token := client.Publish(fmt.Sprintf("disconnect/%s", host), 0, false, fmt.Sprintf("%d", freePort)); token.Wait() && token.Error() != nil {
+			logrus.Error(token.Error())
 		}
 	}
 }
