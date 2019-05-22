@@ -9,7 +9,7 @@ services:
     build: ssh-forward
     network_mode: host
   emq:
-    build: git://github.com/emqtt/emq-docker
+    image: emqx/emqx:v3.1.1
     network_mode: host
     environment:
      - EMQ_NAME=emq
